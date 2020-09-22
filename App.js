@@ -11,10 +11,13 @@ import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 
 import {Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {Provider} from 'react-redux';
+import store from './redux/store';
+// console.log(store.getState().auth.authenticated);
 
 const App = () => {
   return (
-    <>
+    <Provider store={store}>
       <SafeAreaView>
         <Text style={styles.text}>Welcome to React Native </Text>
         <Button
@@ -27,7 +30,7 @@ const App = () => {
           title="Button with icon component"
         />
       </SafeAreaView>
-    </>
+    </Provider>
   );
 };
 
