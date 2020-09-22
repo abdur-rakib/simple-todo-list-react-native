@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "402138581108",
+    "firebase_url": "https://simple-task-manager-ce367.firebaseio.com",
+    "project_id": "simple-task-manager-ce367",
+    "storage_bucket": "simple-task-manager-ce367.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:402138581108:android:58e715d4975b08bbed2921",
+        "android_client_info": {
+          "package_name": "com.simpletodolist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "402138581108-drknrfm3hgnm65qdkj6uc8flacefrbaj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjGwmvDkYgBGMjV1wDWUJzQ5fFzIecDeg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "402138581108-drknrfm3hgnm65qdkj6uc8flacefrbaj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,18 +16,24 @@ import {
   StatusBar,
 } from 'react-native';
 
-
 const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView>
-        <Text>Welcome to React Native </Text>
+        <Text style={styles.text}>Welcome to React Native </Text>
       </SafeAreaView>
     </>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 25,
+    textAlign: 'center',
+    color: 'teal',
+    marginVertical: 20,
+  },
+});
 
 export default App;
