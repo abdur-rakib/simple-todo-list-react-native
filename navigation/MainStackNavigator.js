@@ -18,7 +18,7 @@ const MainStackNavigator = () => {
         <Stack.Screen
           name="Home"
           component={Home}
-          options={{title: 'Home Page'}}
+          options={{title: 'Your Tasks'}}
         />
         <Stack.Screen
           name="Details"

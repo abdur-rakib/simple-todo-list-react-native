@@ -16,8 +16,8 @@ import Login from './screens/Login';
 const App = () => {
   return (
     <Provider store={store}>
-      {/* <MainStackNavigator /> */}
-      <Login />
+      <MainStackNavigator />
+      {/* <Login /> */}
     </Provider>
   );
 };
