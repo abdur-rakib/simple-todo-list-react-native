@@ -1,34 +1,45 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, TextInput, StyleSheet} from 'react-native';
 import {Input, Button} from 'react-native-elements';
+import {connect} from 'react-redux';
+import {addTask} from '../redux/actions/dataActions';
 
-const AddTaskForm = () => {
+const AddTaskForm = ({addTask}) => {
+  const [taskDescription, setTaskDescription] = useState('');
+  const [disable, setDisable] = useState(true);
   const handleAddTask = () => {
-    console.log('Task Added');
+    addTask(taskDescription);
+    setTaskDescription('');
   };
   return (
     <View style={styles.taskForm}>
-      <Input
-        containerStyle={{flex: 1}}
+      <TextInput
+        style={styles.textInput}
         placeholder="Add task"
         leftIcon={{name: 'add-task'}}
-        leftIconContainerStyle={{paddingBottom: 6}}
+        value={taskDescription}
+        multiline
+        onChangeText={(text) => setTaskDescription(text)}
       />
-      <Button
-        buttonStyle={{paddingHorizontal: 25, paddingVertical: 8}}
-        title="Add"
-        titleStyle={{fontSize: 20}}
-        onPress={handleAddTask}
-      />
+      <Button disabled={false} title="Add" onPress={handleAddTask} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   taskForm: {
-    marginVertical: 10,
-    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  textInput: {
+    height: 60,
+    fontSize: 18,
   },
 });
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapActionsToProps = {
+  addTask,
+};
 
-export default AddTaskForm;
+export default connect(mapStateToProps, mapActionsToProps)(AddTaskForm);

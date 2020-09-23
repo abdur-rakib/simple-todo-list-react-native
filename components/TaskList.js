@@ -1,45 +1,21 @@
-import React from 'react';
-import {View} from 'react-native';
-import {ListItem, Button, Icon} from 'react-native-elements';
+import React, {useEffect} from 'react';
+import {ScrollView} from 'react-native';
+import {ListItem, Icon} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {connect} from 'react-redux';
 
-const tasks = [
-  {
-    id: 1,
-    taskDescription:
-      'Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet',
-    completed: false,
-  },
-  {
-    id: 2,
-    taskDescription:
-      'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy',
-    completed: false,
-  },
-  {
-    id: 3,
-    taskDescription:
-      'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a',
-    completed: false,
-  },
-  {
-    id: 4,
-    taskDescription:
-      'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some formem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet',
-    completed: false,
-  },
-];
-
-const TaskList = () => {
+const TaskList = ({data}) => {
   const navigation = useNavigation();
+  useEffect(() => {}, [data.tasks]);
   return (
-    <View>
-      {tasks.map((l, i) => (
-        <ListItem key={i} bottomDivider>
-          <ListItem.Content>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Details', {task: l})}>
+    <ScrollView>
+      {data.tasks?.map((l, i) => (
+        <TouchableOpacity
+          key={i}
+          onPress={() => navigation.navigate('Details', {task: l})}>
+          <ListItem bottomDivider>
+            <ListItem.Content>
               <ListItem.Subtitle style={{fontSize: 18, textAlign: 'justify'}}>
                 <Icon
                   iconStyle={{color: 'dodgerblue', paddingRight: 6}}
@@ -49,12 +25,17 @@ const TaskList = () => {
                 />
                 {l.taskDescription}
               </ListItem.Subtitle>
-            </TouchableOpacity>
-          </ListItem.Content>
-        </ListItem>
+            </ListItem.Content>
+          </ListItem>
+        </TouchableOpacity>
       ))}
-    </View>
+    </ScrollView>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    data: state.data,
+  };
+};
 
-export default TaskList;
+export default connect(mapStateToProps)(TaskList);
