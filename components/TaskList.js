@@ -42,7 +42,7 @@ const TaskList = () => {
               onPress={() => navigation.navigate('Details', {task: l})}>
               <ListItem.Subtitle style={{fontSize: 18, textAlign: 'justify'}}>
                 <Icon
-                  iconStyle={{color: 'dodgerblue'}}
+                  iconStyle={{color: 'dodgerblue', paddingRight: 6}}
                   name="rightcircleo"
                   type="antdesign"
                   size={12}
