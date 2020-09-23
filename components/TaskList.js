@@ -1,13 +1,12 @@
 import React, {useEffect} from 'react';
-import {ScrollView} from 'react-native';
-import {ListItem, Icon, Text} from 'react-native-elements';
+import {ScrollView, StyleSheet} from 'react-native';
+import {ListItem, Icon, Text, CheckBox} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 
 const TaskList = ({data}) => {
   const navigation = useNavigation();
-  useEffect(() => {}, [data.tasks]);
   const renderTasks =
     data.tasks.length === 0 ? (
       <Text h4 h4Style={{textAlign: 'center', fontWeight: '300'}}>
@@ -19,14 +18,14 @@ const TaskList = ({data}) => {
           key={i}
           onPress={() => navigation.navigate('Details', {task: l})}>
           <ListItem bottomDivider style={{marginBottom: 5}}>
-            <ListItem.Content>
+            <ListItem.Content style={styles.listItemArea}>
+              <Icon
+                iconStyle={{color: 'dodgerblue', paddingRight: 6}}
+                name="rightcircleo"
+                type="antdesign"
+                size={19}
+              />
               <ListItem.Subtitle style={{fontSize: 18, textAlign: 'justify'}}>
-                <Icon
-                  iconStyle={{color: 'dodgerblue', paddingRight: 6}}
-                  name="rightcircleo"
-                  type="antdesign"
-                  size={12}
-                />
                 {l.taskDescription}
               </ListItem.Subtitle>
             </ListItem.Content>
@@ -36,6 +35,13 @@ const TaskList = ({data}) => {
     );
   return <ScrollView>{renderTasks}</ScrollView>;
 };
+const styles = StyleSheet.create({
+  listItemArea: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+});
 const mapStateToProps = (state) => {
   return {
     data: state.data,

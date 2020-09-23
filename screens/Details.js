@@ -1,21 +1,27 @@
 import {useNavigation} from '@react-navigation/native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Alert} from 'react-native';
 import {Card, Input, Overlay} from 'react-native-elements';
 import {Button} from 'react-native-elements';
 import {connect} from 'react-redux';
-import {deleteTask} from '../redux/actions/dataActions';
+import {deleteTask, updateTask} from '../redux/actions/dataActions';
 
-const Details = ({route, deleteTask}) => {
+const Details = ({route, data, deleteTask, updateTask}) => {
   const {task} = route.params;
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
+
+  const [taskDes, setTaskDes] = useState(task.taskDescription);
+
   const toggleOverlay = () => {
     setVisible(!visible);
   };
+  const handleUpdate = () => {
+    updateTask(task.id, taskDes);
+    toggleOverlay();
+  };
 
   const handleDelete = () => {
-    deleteTask(task.id);
     navigation.navigate('Home');
   };
 
@@ -33,6 +39,8 @@ const Details = ({route, deleteTask}) => {
       ],
       {cancelable: true},
     );
+
+  useEffect(() => {}, [taskDes]);
   return (
     <View>
       <Overlay
@@ -44,16 +52,35 @@ const Details = ({route, deleteTask}) => {
         }}
         onBackdropPress={toggleOverlay}>
         <>
-          <Input value={task.taskDescription} multiline />
-          <Button title="Update" />
+          <Input
+            onChangeText={(text) => setTaskDes(text)}
+            value={taskDes}
+            multiline
+          />
+          <Button title="Update" onPress={handleUpdate} />
         </>
       </Overlay>
       <Card>
         <Text style={{fontSize: 18, textAlign: 'justify', color: 'gray'}}>
-          {task.taskDescription}
+          {taskDes}
         </Text>
         <Text style={{fontWeight: 'bold'}}>Updated: 10/12/20</Text>
         <View style={{flexDirection: 'row', marginVertical: 5}}>
+          <Button
+            buttonStyle={{
+              height: 35,
+              marginRight: 10,
+              paddingRight: 15,
+              backgroundColor: 'teal',
+            }}
+            icon={{
+              name: 'edit',
+              size: 15,
+              color: 'white',
+            }}
+            title="Complete"
+            onPress={() => setVisible(true)}
+          />
           <Button
             buttonStyle={{
               height: 35,
@@ -89,8 +116,8 @@ const Details = ({route, deleteTask}) => {
   );
 };
 const mapStateToProps = (state) => {
-  return {};
+  return {data: state.data};
 };
-const mapActionsToProps = {deleteTask};
+const mapActionsToProps = {deleteTask, updateTask};
 
 export default connect(mapStateToProps, mapActionsToProps)(Details);

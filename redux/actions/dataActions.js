@@ -1,4 +1,4 @@
-import {ADD_TASK, DELETE_TASK} from '../types';
+import {ADD_TASK, DELETE_TASK, UPDATE_TASK} from '../types';
 
 export const addTask = (taskDescription) => (dispatch) => {
   dispatch({
@@ -14,4 +14,8 @@ export const addTask = (taskDescription) => (dispatch) => {
 
 export const deleteTask = (id) => (dispatch) => {
   dispatch({type: DELETE_TASK, payload: id});
+};
+
+export const updateTask = (id, taskDescription) => (dispatch) => {
+  dispatch({type: UPDATE_TASK, payload: {id, taskDescription}});
 };
