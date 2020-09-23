@@ -3,11 +3,13 @@ import {View, StyleSheet} from 'react-native';
 import {SocialIcon, Icon, Text} from 'react-native-elements';
 // redux stuff
 import {connect} from 'react-redux';
+import {loginWithGoogle} from '../redux/actions/authActions';
 
-const LoginScreen = ({UI, auth}) => {
+const LoginScreen = ({UI, auth, loginWithGoogle}) => {
   const {loading} = UI;
   const handleLogin = () => {
     console.log('pressed');
+    loginWithGoogle();
   };
   return (
     <View style={styles.conatiner}>
@@ -66,6 +68,6 @@ const mapStateToProps = (state) => {
     user: state.user,
   };
 };
-const mapActionsToProps = {};
+const mapActionsToProps = {loginWithGoogle};
 
 export default connect(mapStateToProps, mapActionsToProps)(LoginScreen);

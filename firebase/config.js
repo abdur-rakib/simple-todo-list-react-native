@@ -5,8 +5,8 @@ let config = {
   projectId: 'simple-task-manager-ce367',
   storageBucket: 'simple-task-manager-ce367.appspot.com',
   messagingSenderId: '402138581108',
-  appId: '1:402138581108:web:d3e53bd28000d5d5ed2921',
-  measurementId: 'G-8QYJ91TYDR',
+  appId: '1:402138581108:web:5c358f915f4da274ed2921',
+  measurementId: 'G-ZWQBEWDJXE',
 };
 
 export default config;
