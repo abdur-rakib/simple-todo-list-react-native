@@ -7,30 +7,19 @@
  */
 
 import React from 'react';
-import {SafeAreaView, StyleSheet, View, Text} from 'react-native';
 
-import {Button} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {Provider} from 'react-redux';
 import MainStackNavigator from './navigation/MainStackNavigator';
 import store from './redux/store';
-// console.log(store.getState().auth.authenticated);
+import Login from './screens/Login';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <MainStackNavigator />
+      {/* <MainStackNavigator /> */}
+      <Login />
     </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-  text: {
-    fontSize: 25,
-    textAlign: 'center',
-    color: 'teal',
-    marginVertical: 20,
-  },
-});
 
 export default App;
