@@ -1,13 +1,22 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {View, Text, Alert} from 'react-native';
 import {Card, Input, Overlay} from 'react-native-elements';
 import {Button} from 'react-native-elements';
+import {connect} from 'react-redux';
+import {deleteTask} from '../redux/actions/dataActions';
 
-const Details = ({route}) => {
+const Details = ({route, deleteTask}) => {
   const {task} = route.params;
+  const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const toggleOverlay = () => {
     setVisible(!visible);
+  };
+
+  const handleDelete = () => {
+    deleteTask(task.id);
+    navigation.navigate('Home');
   };
 
   const deleteAlert = () =>
@@ -20,7 +29,7 @@ const Details = ({route}) => {
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'Yes', onPress: () => console.log('OK Pressed')},
+        {text: 'Yes', onPress: handleDelete},
       ],
       {cancelable: true},
     );
@@ -49,6 +58,7 @@ const Details = ({route}) => {
             buttonStyle={{
               height: 35,
               marginRight: 10,
+              paddingRight: 15,
             }}
             icon={{
               name: 'edit',
@@ -62,7 +72,8 @@ const Details = ({route}) => {
             buttonStyle={{
               height: 35,
               marginRight: 10,
-              backgroundColor: 'red',
+              paddingRight: 15,
+              backgroundColor: 'orangered',
             }}
             icon={{
               name: 'delete',
@@ -77,5 +88,9 @@ const Details = ({route}) => {
     </View>
   );
 };
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapActionsToProps = {deleteTask};
 
-export default Details;
+export default connect(mapStateToProps, mapActionsToProps)(Details);

@@ -1,4 +1,4 @@
-import {ADD_TASK} from '../types';
+import {ADD_TASK, DELETE_TASK} from '../types';
 
 // const tasks = [
 //   {
@@ -28,6 +28,10 @@ export default function (state = initialState, action) {
       return {
         ...state,
         tasks: [...state.tasks, action.payload],
+      };
+    case DELETE_TASK:
+      return {
+        tasks: state.tasks.filter((task) => task.id !== action.payload),
       };
     default:
       return state;

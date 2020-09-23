@@ -8,8 +8,10 @@ const AddTaskForm = ({addTask}) => {
   const [taskDescription, setTaskDescription] = useState('');
   const [disable, setDisable] = useState(true);
   const handleAddTask = () => {
-    addTask(taskDescription);
-    setTaskDescription('');
+    if (taskDescription.trim().length !== 0) {
+      addTask(taskDescription);
+      setTaskDescription('');
+    }
   };
   return (
     <View style={styles.taskForm}>
