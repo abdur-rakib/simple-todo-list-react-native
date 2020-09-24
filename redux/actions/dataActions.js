@@ -37,7 +37,6 @@ export const addTask = (task) => (dispatch) => {
 };
 
 export const deleteTask = (id) => (dispatch) => {
-  // console.log(id);
   db.collection('tasks')
     .doc(id)
     .delete()
@@ -48,5 +47,13 @@ export const deleteTask = (id) => (dispatch) => {
 };
 
 export const updateTask = (id, taskDescription) => (dispatch) => {
-  dispatch({type: UPDATE_TASK, payload: {id, taskDescription}});
+  db.collection('tasks')
+    .doc(id)
+    .update({
+      taskDescription,
+    })
+    .then(() => {
+      dispatch({type: UPDATE_TASK, payload: {id, taskDescription}});
+    })
+    .catch((err) => console.log('Error from update task', err));
 };
