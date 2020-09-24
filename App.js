@@ -9,15 +9,13 @@
 import React from 'react';
 
 import {Provider} from 'react-redux';
-import MainStackNavigator from './navigation/MainStackNavigator';
+import Container from './Container';
 import store from './redux/store';
-import Login from './screens/Login';
 
 const App = () => {
   return (
     <Provider store={store}>
-      {/* <MainStackNavigator /> */}
-      <Login />
+      <Container />
     </Provider>
   );
 };

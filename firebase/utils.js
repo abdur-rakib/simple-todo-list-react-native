@@ -8,27 +8,7 @@ import {GoogleSignin} from '@react-native-community/google-signin';
 GoogleSignin.configure({
   webClientId:
     '402138581108-drknrfm3hgnm65qdkj6uc8flacefrbaj.apps.googleusercontent.com',
+  androidClientId:
+    '402138581108-p73ptm9gg4qhj48nl8ol11q4j31ddapq.apps.googleusercontent.com',
 });
-
-// import config from './config';
-// firebase.initializeApp(config);
-// const googleProvider = auth.GoogleAuthProvider();
-
-// import firebase from 'firebase/app';
-// import 'firebase/storage';
-// import 'firebase/firestore';
-// import 'firebase/auth';
-
-// import config from './config';
-
-// firebase.initializeApp(config);
-// if (!firebase.apps.length) {
-//   firebase.initializeApp({});
-// }
-
-// const db = firebase.firestore();
-// const storage = firebase.storage();
-// const auth = firebase.auth();
-// const provider = new firebase.auth.GoogleAuthProvider();
-
 export {firestore, auth, GoogleSignin};
