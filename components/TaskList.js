@@ -8,7 +8,7 @@ import {getTasks} from '../redux/actions/dataActions';
 
 const TaskList = ({data, auth, getTasks}) => {
   const navigation = useNavigation();
-  console.log(data.tasks);
+  // console.log(data.tasks);
   useEffect(() => {
     getTasks(auth.userId);
   }, []);

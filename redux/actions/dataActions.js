@@ -9,8 +9,7 @@ import {
 } from '../types';
 
 export const getTasks = (userId) => (dispatch) => {
-  db()
-    .collection('tasks')
+  db.collection('tasks')
     .orderBy('timestamp', 'desc')
     .where('authorId', '==', userId)
     .get()
@@ -25,8 +24,7 @@ export const getTasks = (userId) => (dispatch) => {
 
 export const addTask = (task) => (dispatch) => {
   dispatch({type: SET_LOADING});
-  db()
-    .collection('tasks')
+  db.collection('tasks')
     .add(task)
     .then(() => {
       dispatch({
@@ -39,7 +37,14 @@ export const addTask = (task) => (dispatch) => {
 };
 
 export const deleteTask = (id) => (dispatch) => {
-  dispatch({type: DELETE_TASK, payload: id});
+  // console.log(id);
+  db.collection('tasks')
+    .doc(id)
+    .delete()
+    .then(() => {
+      dispatch({type: DELETE_TASK, payload: id});
+      console.log('Deleted successfully');
+    });
 };
 
 export const updateTask = (id, taskDescription) => (dispatch) => {

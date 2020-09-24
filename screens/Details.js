@@ -22,6 +22,7 @@ const Details = ({route, data, deleteTask, updateTask}) => {
   };
 
   const handleDelete = () => {
+    deleteTask(task.id);
     navigation.navigate('Home');
   };
 

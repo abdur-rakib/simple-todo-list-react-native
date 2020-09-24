@@ -1,6 +1,7 @@
 import * as firebase from '@react-native-firebase/app';
-import db from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+const db = firestore();
 
 // Sign in with google
 import {GoogleSignin} from '@react-native-community/google-signin';
