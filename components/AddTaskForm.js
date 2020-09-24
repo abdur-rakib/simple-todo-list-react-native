@@ -1,15 +1,23 @@
 import React, {useState} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
-import {Input, Button} from 'react-native-elements';
+import {Button} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {addTask} from '../redux/actions/dataActions';
 
-const AddTaskForm = ({addTask}) => {
+const AddTaskForm = ({addTask, auth, UI}) => {
   const [taskDescription, setTaskDescription] = useState('');
   const [disable, setDisable] = useState(true);
   const handleAddTask = () => {
     if (taskDescription.trim().length !== 0) {
-      addTask(taskDescription);
+      const task = {
+        taskDescription,
+        authorName: auth.userName,
+        authorImage: auth.userImage,
+        authorId: auth.userId,
+        completed: false,
+        timestamp: new Date().toISOString(),
+      };
+      addTask(task);
       setTaskDescription('');
     }
   };
@@ -23,7 +31,12 @@ const AddTaskForm = ({addTask}) => {
         multiline
         onChangeText={(text) => setTaskDescription(text)}
       />
-      <Button disabled={false} title="Add" onPress={handleAddTask} />
+      <Button
+        disabled={UI.loading}
+        loading={UI.loading}
+        title="Add"
+        onPress={handleAddTask}
+      />
     </View>
   );
 };
@@ -38,7 +51,10 @@ const styles = StyleSheet.create({
   },
 });
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    auth: state.auth,
+    UI: state.UI,
+  };
 };
 const mapActionsToProps = {
   addTask,

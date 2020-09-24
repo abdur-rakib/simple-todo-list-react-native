@@ -21,8 +21,9 @@ export const loginWithGoogle = () => (dispatch) => {
       type: SET_USER,
       payload: {
         authenticated: true,
-        userName: res.user.disaplayName,
-        uaerImage: res.user.photoUrl,
+        userName: res.user.displayName,
+        userImage: res.user.photoURL,
+        userId: res.user.uid,
       },
     });
   });

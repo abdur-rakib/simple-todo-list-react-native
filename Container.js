@@ -16,12 +16,14 @@ const Container = () => {
   const onAuthStateChanged = (user) => {
     setUser(user);
     if (user) {
+      // console.log('user from container', user);
       store.dispatch({
         type: SET_USER,
         payload: {
           authenticated: true,
-          userName: user.disaplayName,
-          uaerImage: user.photoUrl,
+          userName: user.displayName,
+          userImage: user.photoURL,
+          userId: user.uid,
         },
       });
     }

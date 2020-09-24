@@ -4,6 +4,7 @@ const initialState = {
   authenticated: false,
   userImage: null,
   userName: null,
+  userId: null,
 };
 
 export default function (state = initialState, action) {

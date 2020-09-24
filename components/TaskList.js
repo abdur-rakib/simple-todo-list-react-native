@@ -1,12 +1,17 @@
 import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
-import {ListItem, Icon, Text, CheckBox} from 'react-native-elements';
+import {ListItem, Icon, Text} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
+import {getTasks} from '../redux/actions/dataActions';
 
-const TaskList = ({data}) => {
+const TaskList = ({data, auth, getTasks}) => {
   const navigation = useNavigation();
+  console.log(data.tasks);
+  useEffect(() => {
+    getTasks(auth.userId);
+  }, []);
   const renderTasks =
     data.tasks.length === 0 ? (
       <Text h4 h4Style={{textAlign: 'center', fontWeight: '300'}}>
@@ -45,7 +50,9 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => {
   return {
     data: state.data,
+    auth: state.auth,
   };
 };
+const mapActionsToProps = {getTasks};
 
-export default connect(mapStateToProps)(TaskList);
+export default connect(mapStateToProps, mapActionsToProps)(TaskList);

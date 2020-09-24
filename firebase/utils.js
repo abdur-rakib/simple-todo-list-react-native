@@ -1,5 +1,5 @@
 import * as firebase from '@react-native-firebase/app';
-import firestore from '@react-native-firebase/firestore';
+import db from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 // Sign in with google
@@ -11,4 +11,4 @@ GoogleSignin.configure({
   androidClientId:
     '402138581108-p73ptm9gg4qhj48nl8ol11q4j31ddapq.apps.googleusercontent.com',
 });
-export {firestore, auth, GoogleSignin};
+export {db, auth, GoogleSignin};
