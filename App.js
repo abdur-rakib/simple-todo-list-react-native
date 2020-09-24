@@ -7,27 +7,17 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
 
+import {Provider} from 'react-redux';
+import Container from './Container';
+import store from './redux/store';
 
 const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Text>Welcome to React Native </Text>
-      </SafeAreaView>
-    </>
+    <Provider store={store}>
+      <Container />
+    </Provider>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default App;
