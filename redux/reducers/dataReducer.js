@@ -1,4 +1,10 @@
-import {ADD_TASK, DELETE_TASK, GET_TASKS, UPDATE_TASK} from '../types';
+import {
+  ADD_TASK,
+  DELETE_TASK,
+  GET_TASKS,
+  TOGGLE_COMPLETE,
+  UPDATE_TASK,
+} from '../types';
 
 const initialState = {
   tasks: [],
@@ -22,12 +28,24 @@ export default function (state = initialState, action) {
         tasks: state.tasks.filter((task) => task.id !== action.payload),
       };
     case UPDATE_TASK:
-      let taskIndex = state.tasks.findIndex(
+      taskIndex = state.tasks.findIndex(
         (task) => task.id === action.payload.id,
       );
       state.tasks[taskIndex] = {
         ...state.tasks[taskIndex],
         taskDescription: action.payload.taskDescription,
+        timestamp: action.payload.timestamp,
+      };
+      return {
+        ...state,
+      };
+    case TOGGLE_COMPLETE:
+      let taskIndex = state.tasks.findIndex(
+        (task) => task.id === action.payload.id,
+      );
+      state.tasks[taskIndex] = {
+        ...state.tasks[taskIndex],
+        completed: !action.payload,
       };
       return {
         ...state,

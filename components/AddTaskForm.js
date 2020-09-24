@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, TextInput, StyleSheet} from 'react-native';
+import {View, TextInput, StyleSheet, Alert} from 'react-native';
 import {Button} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {addTask} from '../redux/actions/dataActions';
@@ -19,6 +19,8 @@ const AddTaskForm = ({addTask, auth, UI}) => {
       };
       addTask(task);
       setTaskDescription('');
+    } else {
+      Alert.alert(null, 'Task can not be empty');
     }
   };
   return (
