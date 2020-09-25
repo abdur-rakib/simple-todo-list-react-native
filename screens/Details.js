@@ -1,13 +1,16 @@
 import {useNavigation} from '@react-navigation/native';
+import moment from 'moment';
 import React, {useEffect, useState} from 'react';
-import {View, Text, Alert} from 'react-native';
+import {View, Text, Alert, StyleSheet} from 'react-native';
 import {Card, Input, Overlay} from 'react-native-elements';
 import {Button} from 'react-native-elements';
 import {connect} from 'react-redux';
+import CompleteButton from '../components/CompleteButton';
 import {deleteTask, updateTask} from '../redux/actions/dataActions';
 
 const Details = ({route, data, deleteTask, updateTask}) => {
   const {task} = route.params;
+  // console.log('details', task);
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
 
@@ -41,17 +44,15 @@ const Details = ({route, data, deleteTask, updateTask}) => {
       {cancelable: true},
     );
 
-  useEffect(() => {}, [taskDes]);
   return (
     <View>
       <Overlay
-        onBackdropPress={toggleOverlay}
+        // onBackdropPress={toggleOverlay}
         isVisible={visible}
         overlayStyle={{
           width: '90%',
           minHeight: 100,
-        }}
-        onBackdropPress={toggleOverlay}>
+        }}>
         <>
           <Input
             onChangeText={(text) => setTaskDes(text)}
@@ -62,26 +63,11 @@ const Details = ({route, data, deleteTask, updateTask}) => {
         </>
       </Overlay>
       <Card>
-        <Text style={{fontSize: 18, textAlign: 'justify', color: 'gray'}}>
-          {taskDes}
+        <Text style={styles.text}>{taskDes}</Text>
+        <Text style={{fontWeight: 'bold'}}>
+          Updated: {moment(task.timestamp).fromNow()}
         </Text>
-        <Text style={{fontWeight: 'bold'}}>Updated: 10/12/20</Text>
         <View style={{flexDirection: 'row', marginVertical: 5}}>
-          <Button
-            buttonStyle={{
-              height: 35,
-              marginRight: 10,
-              paddingRight: 15,
-              backgroundColor: 'teal',
-            }}
-            icon={{
-              name: 'edit',
-              size: 15,
-              color: 'white',
-            }}
-            title="Complete"
-            onPress={() => setVisible(true)}
-          />
           <Button
             buttonStyle={{
               height: 35,
@@ -116,6 +102,9 @@ const Details = ({route, data, deleteTask, updateTask}) => {
     </View>
   );
 };
+const styles = StyleSheet.create({
+  text: {fontSize: 18, textAlign: 'justify', color: 'gray'},
+});
 const mapStateToProps = (state) => {
   return {data: state.data};
 };

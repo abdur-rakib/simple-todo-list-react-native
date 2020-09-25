@@ -6,6 +6,7 @@ import {
   GET_TASKS,
   SET_LOADING,
   CLEAR_LOADING,
+  TOGGLE_COMPLETE,
 } from '../types';
 
 export const getTasks = (userId) => (dispatch) => {
@@ -51,9 +52,32 @@ export const updateTask = (id, taskDescription) => (dispatch) => {
     .doc(id)
     .update({
       taskDescription,
+      timestamp: new Date().toISOString(),
     })
     .then(() => {
-      dispatch({type: UPDATE_TASK, payload: {id, taskDescription}});
+      dispatch({
+        type: UPDATE_TASK,
+        payload: {id, taskDescription, timestamp: new Date().toISOString()},
+      });
     })
     .catch((err) => console.log('Error from update task', err));
+};
+
+export const toggleComplete = (id, completed) => (dispatch) => {
+  // dispatch({type: SET_LOADING});
+  db.collection('tasks')
+    .doc(id)
+    .get()
+    .then((doc) => {
+      const completed_value = doc.data().completed;
+      // console.log(doc);
+      db.collection('tasks')
+        .doc(id)
+        .update({
+          completed: !completed_value,
+        })
+        .then(() => {
+          dispatch({type: TOGGLE_COMPLETE, payload: completed});
+        });
+    });
 };
