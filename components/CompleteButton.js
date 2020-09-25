@@ -15,7 +15,7 @@ const CompleteButton = ({id, completed, toggleComplete}) => {
           buttonStyle={{
             height: 35,
             paddingRight: 15,
-            backgroundColor: 'teal',
+            backgroundColor: 'green',
             marginLeft: 20,
           }}
           title="Completed"
@@ -30,6 +30,7 @@ const CompleteButton = ({id, completed, toggleComplete}) => {
             backgroundColor: 'teal',
             marginLeft: 20,
           }}
+          type="solid"
           title="Complete"
           onPress={handleComplete}
         />
