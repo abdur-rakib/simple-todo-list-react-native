@@ -1,18 +1,14 @@
+import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
 const Profile = ({navigation}) => {
+  const isFocused = useIsFocused();
   useEffect(() => {
-    const unsubscribe = navigation.addListener('tabPress', (e) => {
-      // Prevent default behavior
-      e.preventDefault();
-      console.log(e);
-      // Do something manually
-      // ...
-    });
-
-    return unsubscribe;
-  }, [navigation]);
+    if (isFocused) {
+      console.log('Focused');
+    }
+  }, [isFocused]);
   return (
     <View style={styles.container}>
       <Text>My Profile</Text>
