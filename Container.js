@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import MainStackNavigator from './navigation/MainStackNavigator';
-import Login from './screens/Login';
-import {auth} from './firebase/utils';
-import store from './redux/store';
-import {SET_USER} from './redux/types';
-import {Text} from 'react-native-elements';
-import {View} from 'react-native';
+import Login from './src/screens/Login';
+import {auth} from './src/firebase/utils';
+import store from './src/redux/store';
+import {SET_USER} from './src/redux/types';
+import MainStackNavigator from './src/navigation/MainStackNavigator';
 
 const Container = () => {
   // Set an initializing state whilst Firebase connects
