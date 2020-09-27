@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {Text} from 'react-native-elements';
 import AuthStack from './AuthStack';
-import AppStack from './AppStack';
 import auth from '@react-native-firebase/auth';
 import store from '../redux/store';
 import {SET_USER} from '../redux/types';
+import MainTabNavigator from './MainTabNavigator';
 
 const MainNavigator = () => {
   // Set an initializing state whilst Firebase connects
@@ -40,7 +40,7 @@ const MainNavigator = () => {
   ) : !user ? (
     <AuthStack />
   ) : (
-    <AppStack />
+    <MainTabNavigator />
   );
   return <NavigationContainer>{renderScreen}</NavigationContainer>;
 };
