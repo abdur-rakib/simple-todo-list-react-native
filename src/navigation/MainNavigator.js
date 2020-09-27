@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import Login from './src/screens/Login';
-import {auth} from './src/firebase/utils';
-import store from './src/redux/store';
-import {SET_USER} from './src/redux/types';
-import MainNavigator from './src/navigation/MainNavigator';
+import {NavigationContainer} from '@react-navigation/native';
+import {Text} from 'react-native-elements';
+import AuthStack from './AuthStack';
+import AppStack from './AppStack';
+import auth from '@react-native-firebase/auth';
+import store from '../redux/store';
+import {SET_USER} from '../redux/types';
 
-const Container = () => {
+const MainNavigator = () => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
@@ -32,21 +34,15 @@ const Container = () => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber;
   }, []);
-  // const renderScreen = auth.authenticated ? <MainNavigator /> : <Login />;
 
-  if (initializing) return null;
-
-  if (!user) {
-    return <Login />;
-  }
-
-  return <MainNavigator />;
+  const renderScreen = initializing ? (
+    <Text h2>Loading</Text>
+  ) : !user ? (
+    <AuthStack />
+  ) : (
+    <AppStack />
+  );
+  return <NavigationContainer>{renderScreen}</NavigationContainer>;
 };
 
-// const mapStateToProps = (state) => {
-//   return {
-//     auth: state.auth,
-//   };
-// };
-
-export default Container;
+export default MainNavigator;
