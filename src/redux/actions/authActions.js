@@ -1,5 +1,5 @@
 import {auth, GoogleSignin} from '../../firebase/utils';
-import {CLEAR_LOADING, SET_LOADING, SET_USER} from '../types';
+import {CLEAR_LOADING, SET_LOADING, SET_LOGOUT, SET_USER} from '../types';
 
 async function onGoogleButtonPress() {
   // Get the users ID token
@@ -27,6 +27,16 @@ export const loginWithGoogle = () => (dispatch) => {
       },
     });
   });
+};
+
+// logout user
+export const logout = () => (dispatch) => {
+  auth()
+    .signOut()
+    .then(() => {
+      dispatch({type: SET_LOGOUT});
+    })
+    .catch((err) => console.log('Error in logout', err));
 };
 
 // Utility function
