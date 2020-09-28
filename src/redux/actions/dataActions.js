@@ -10,11 +10,11 @@ import {
 } from '../types';
 
 export const getTasks = (userId) => (dispatch) => {
+  // console.log('called');
   db.collection('tasks')
     .orderBy('timestamp', 'desc')
     .where('authorId', '==', userId)
-    .get()
-    .then((querySnapshot) => {
+    .onSnapshot((querySnapshot) => {
       let tasks = [];
       querySnapshot.forEach((doc) => {
         tasks.push({id: doc.id, ...doc.data()});
@@ -24,6 +24,7 @@ export const getTasks = (userId) => (dispatch) => {
 };
 
 export const addTask = (task) => (dispatch) => {
+  console.log('Called');
   dispatch({type: SET_LOADING});
   db.collection('tasks')
     .add(task)

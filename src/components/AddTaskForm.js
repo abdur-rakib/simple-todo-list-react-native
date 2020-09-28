@@ -1,13 +1,29 @@
 import React, {useState} from 'react';
-import {View, TextInput, StyleSheet, Alert} from 'react-native';
+import {View, TextInput, StyleSheet, Text, Alert} from 'react-native';
 import {Button} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {addTask} from '../redux/actions/dataActions';
 
 const AddTaskForm = ({addTask, auth, UI}) => {
   const [taskDescription, setTaskDescription] = useState('');
-  const [disable, setDisable] = useState(true);
+  const [error, setError] = useState(false);
   const handleAddTask = () => {
+    // if (taskDescription.trim().length === 0) {
+    //   setError(true);
+    // }
+    // if (!error) {
+    //   const task = {
+    //     taskDescription,
+    //     authorName: auth.userName,
+    //     authorImage: auth.userImage,
+    //     authorId: auth.userId,
+    //     completed: false,
+    //     timestamp: new Date().toISOString(),
+    //   };
+    //   addTask(task);
+    //   setTaskDescription('');
+    //   setError(false);
+    // }
     if (taskDescription.trim().length !== 0) {
       const task = {
         taskDescription,
@@ -19,8 +35,10 @@ const AddTaskForm = ({addTask, auth, UI}) => {
       };
       addTask(task);
       setTaskDescription('');
+      setError(false);
     } else {
-      Alert.alert(null, 'Task can not be empty');
+      // Alert.alert(null, 'Task can not be empty');
+      setError(true);
     }
   };
   return (
@@ -33,6 +51,11 @@ const AddTaskForm = ({addTask, auth, UI}) => {
         multiline
         onChangeText={(text) => setTaskDescription(text)}
       />
+      {error && (
+        <Text style={{textAlign: 'center', color: 'red'}}>
+          Task should be atleast 20 characters
+        </Text>
+      )}
       <Button
         disabled={UI.loading}
         loading={UI.loading}
