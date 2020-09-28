@@ -19,10 +19,6 @@ export default function (state = initialState, action) {
         tasks: action.payload,
       };
     case ADD_TASK:
-      // return {
-      //   ...state,
-      //   tasks: [...state.tasks, action.payload],
-      // };
       return state;
     case DELETE_TASK:
       return {

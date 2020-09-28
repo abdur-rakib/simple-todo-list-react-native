@@ -5,25 +5,16 @@ import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import {getTasks} from '../../src/redux/actions/dataActions';
-import CompleteButton from './CompleteButton';
 // Picker
 import {Picker} from '@react-native-community/picker';
 import SingleTask from './SingleTask';
 
 const TaskList = ({data, auth, getTasks}) => {
   const [selectedValue, setSelectedValue] = useState('all');
-  const [list, setList] = useState([]);
   useEffect(() => {
-    getTasks(auth.userId);
-    // if (selectedValue === 'all') {
-    //   getTasks(auth.userId);
-    //   setList(data.tasks);
-    // } else if (selectedValue === 'completed') {
-    //   setList(data.tasks.filter((l) => l.completed === true));
-    // } else if (selectedValue === 'incomplete') {
-    //   setList(data.tasks.filter((l) => l.completed === false));
-    // }
-  }, [auth]);
+    getTasks(auth.userId, selectedValue);
+    // setList((list) => data.tasks);
+  }, [auth, selectedValue]);
   const renderTasks =
     data.tasks.length === 0 ? (
       <Text h4 h4Style={{textAlign: 'center', fontWeight: '300'}}>
@@ -31,6 +22,7 @@ const TaskList = ({data, auth, getTasks}) => {
       </Text>
     ) : (
       <FlatList
+        keyboardShouldPersistTaps="always"
         data={data.tasks}
         renderItem={({item}) => <SingleTask item={item} />}
         keyExtractor={(item) => item.id}
@@ -38,14 +30,18 @@ const TaskList = ({data, auth, getTasks}) => {
     );
   return (
     <View>
-      {/* <Picker
+      <Picker
         selectedValue={selectedValue}
-        style={{height: 50, width: 150}}
+        style={{
+          height: 50,
+          width: 150,
+          alignSelf: 'center',
+        }}
         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}>
         <Picker.Item label="All" value="all" />
         <Picker.Item label="Incomplete" value="incomplete" />
         <Picker.Item label="Completed" value="completed" />
-      </Picker> */}
+      </Picker>
       {renderTasks}
     </View>
   );

@@ -9,8 +9,7 @@ import {
   TOGGLE_COMPLETE,
 } from '../types';
 
-export const getTasks = (userId) => (dispatch) => {
-  // console.log('called');
+export const getTasks = (userId, type) => (dispatch) => {
   db.collection('tasks')
     .orderBy('timestamp', 'desc')
     .where('authorId', '==', userId)
@@ -19,7 +18,19 @@ export const getTasks = (userId) => (dispatch) => {
       querySnapshot.forEach((doc) => {
         tasks.push({id: doc.id, ...doc.data()});
       });
-      dispatch({type: GET_TASKS, payload: tasks});
+      if (type === 'all') {
+        dispatch({type: GET_TASKS, payload: tasks});
+      } else if (type === 'incomplete') {
+        dispatch({
+          type: GET_TASKS,
+          payload: tasks.filter((t) => t.completed === false),
+        });
+      } else {
+        dispatch({
+          type: GET_TASKS,
+          payload: tasks.filter((t) => t.completed === true),
+        });
+      }
     });
 };
 
@@ -72,13 +83,15 @@ export const toggleComplete = (id, completed) => (dispatch) => {
     .then((doc) => {
       const completed_value = doc.data().completed;
       // console.log(doc);
+      dispatch({type: TOGGLE_COMPLETE, payload: completed});
+
       db.collection('tasks')
         .doc(id)
         .update({
           completed: !completed_value,
         })
         .then(() => {
-          dispatch({type: TOGGLE_COMPLETE, payload: completed});
+          // dispatch({type: TOGGLE_COMPLETE, payload: completed});
           // dispatch({type: CLEAR_LOADING});
         });
     });
