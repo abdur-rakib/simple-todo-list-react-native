@@ -9,13 +9,13 @@
 import React from 'react';
 
 import {Provider} from 'react-redux';
-import Container from './Container';
-import store from './redux/store';
+import MainNavigator from './src/navigation/MainNavigator';
+import store from './src/redux/store';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Container />
+      <MainNavigator />
     </Provider>
   );
 };

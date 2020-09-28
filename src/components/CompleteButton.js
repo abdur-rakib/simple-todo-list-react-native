@@ -1,8 +1,7 @@
 import React from 'react';
 import {Button} from 'react-native-elements';
 import {connect} from 'react-redux';
-import {toggleComplete} from '../redux/actions/dataActions';
-import {Icon} from 'react-native-elements';
+import {toggleComplete} from '../../src/redux/actions/dataActions';
 
 const CompleteButton = ({id, completed, toggleComplete}) => {
   const handleComplete = () => {

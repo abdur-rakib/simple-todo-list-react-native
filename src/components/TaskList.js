@@ -4,7 +4,7 @@ import {ListItem, Icon, Text} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
-import {getTasks} from '../redux/actions/dataActions';
+import {getTasks} from '../../src/redux/actions/dataActions';
 import CompleteButton from './CompleteButton';
 // Picker
 import {Picker} from '@react-native-community/picker';
