@@ -79,6 +79,7 @@ export const toggleComplete = (id, completed) => (dispatch) => {
         })
         .then(() => {
           dispatch({type: TOGGLE_COMPLETE, payload: completed});
+          // dispatch({type: CLEAR_LOADING});
         });
     });
 };

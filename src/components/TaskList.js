@@ -23,7 +23,7 @@ const TaskList = ({data, auth, getTasks}) => {
     // } else if (selectedValue === 'incomplete') {
     //   setList(data.tasks.filter((l) => l.completed === false));
     // }
-  }, []);
+  }, [auth]);
   const renderTasks =
     data.tasks.length === 0 ? (
       <Text h4 h4Style={{textAlign: 'center', fontWeight: '300'}}>
