@@ -2,48 +2,58 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Icon} from 'react-native-elements';
+import {connect} from 'react-redux';
+import {toggleComplete} from '../redux/actions/dataActions';
 
-const SingleTask = ({item}) => {
+const SingleTask = ({item, toggleComplete}) => {
   //   console.log(item);
   const navigation = useNavigation();
-
   return (
     <View style={styles.container}>
       <View style={styles.checkArea}>
         {item.completed ? (
           <Icon
-            iconStyle={{color: 'dodgerblue', paddingRight: 6}}
+            iconStyle={{color: 'dodgerblue', paddingRight: 10}}
             name="checkbox-active"
             type="fontisto"
             size={19}
+            onPress={() => toggleComplete(item.id, item.completed)}
           />
         ) : (
           <Icon
-            iconStyle={{color: 'dodgerblue', paddingRight: 6}}
+            iconStyle={{color: 'dodgerblue', paddingRight: 10}}
             name="checkbox-passive"
             type="fontisto"
             size={19}
+            onPress={() => toggleComplete(item.id, item.completed)}
           />
         )}
       </View>
       <TouchableOpacity
         style={styles.contentArea}
         onPress={() => navigation.navigate('Details', {task: item})}>
-        <Text style={styles.text}>{item.taskDescription}</Text>
+        <Text
+          style={[
+            styles.text,
+            item.completed && {textDecorationLine: 'line-through'},
+          ]}>
+          {item.taskDescription}
+        </Text>
       </TouchableOpacity>
-      <View style={styles.editArea}>
+      {/* <View style={styles.editArea}>
         <Icon
           iconStyle={{color: 'dodgerblue', paddingRight: 6}}
           name="edit"
           type="antdesign"
           size={19}
         />
-      </View>
+      </View> */}
     </View>
   );
 };
+const mapActionsToProps = {toggleComplete};
 
-export default SingleTask;
+export default connect(null, mapActionsToProps)(SingleTask);
 
 const styles = StyleSheet.create({
   container: {
@@ -56,24 +66,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   contentArea: {
-    flexGrow: 1,
+    // flexGrow: 1,
+    width: '96%',
   },
   text: {
     fontSize: 18,
   },
 });
-
-{
-  /* <Icon
-              iconStyle={{color: 'dodgerblue', paddingRight: 6}}
-              name="rightcircleo"
-              type="antdesign"
-              size={19}
-            />
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Details', {task: l})}>
-              <ListItem.Subtitle style={{fontSize: 18}}>
-                {l.taskDescription}
-              </ListItem.Subtitle>
-            </TouchableOpacity> */
-}
