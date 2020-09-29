@@ -1,18 +1,12 @@
-import {useIsFocused} from '@react-navigation/native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
 import {Avatar, Button, Icon, Text} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {logout} from '../redux/actions/authActions';
 
-const Profile = ({navigation, auth, logout}) => {
-  const isFocused = useIsFocused();
+const Profile = ({auth, logout}) => {
   const {userImage, userName} = auth;
-  useEffect(() => {
-    if (isFocused) {
-      console.log('Focused');
-    }
-  }, [isFocused]);
+
   // handle logout
   const handleLogout = () => {
     Alert.alert(
@@ -83,7 +77,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   button: {
-    backgroundColor: 'orangered',
+    backgroundColor: 'red',
     height: 30,
     marginVertical: 10,
   },

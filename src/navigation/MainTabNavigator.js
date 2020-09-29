@@ -14,8 +14,8 @@ const MainTabNavigator = () => {
         component={AppStack}
         options={{
           tabBarLabel: 'Home',
-          tabBarIcon: ({color, size}) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="home" color={color} size={35} />
           ),
         }}
       />
@@ -24,9 +24,7 @@ const MainTabNavigator = () => {
         component={Profile}
         options={{
           tabBarLabel: 'Profile',
-          tabBarIcon: ({color, size}) => (
-            <Icon name="face" color={color} size={size} />
-          ),
+          tabBarIcon: ({color}) => <Icon name="face" color={color} size={35} />,
         }}
       />
     </Tab.Navigator>
