@@ -8,7 +8,7 @@ const AddTaskForm = ({addTask, auth, UI}) => {
   const [taskDescription, setTaskDescription] = useState('');
   const [error, setError] = useState(false);
   const handleAddTask = () => {
-    if (taskDescription.trim().length !== 0) {
+    if (taskDescription.trim().length >= 20) {
       const task = {
         taskDescription,
         authorName: auth.userName,
