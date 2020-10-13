@@ -17,6 +17,7 @@ const AddTaskForm = ({addTask, auth, UI}) => {
         completed: false,
         timestamp: new Date().toISOString(),
       };
+
       addTask(task);
       setTaskDescription('');
       setError(false);
