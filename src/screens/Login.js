@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {SocialIcon, Icon, Text} from 'react-native-elements';
 // redux stuff
 import {connect} from 'react-redux';
-import {loginWithGoogle} from '../redux/actions/authActions';
+import {loginWithGoogle} from '../../src/redux/actions/authActions';
 
 const LoginScreen = ({UI, auth, loginWithGoogle}) => {
   const {loading} = UI;
