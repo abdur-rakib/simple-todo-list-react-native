@@ -1,6 +1,7 @@
 import React from 'react';
 import Profile from '../screens/Profile';
 import AppStack from './AppStack';
+import ProfileStack from './ProfileStack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Icon} from 'react-native-elements';
@@ -21,7 +22,7 @@ const MainTabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={ProfileStack}
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({color}) => <Icon name="face" color={color} size={35} />,

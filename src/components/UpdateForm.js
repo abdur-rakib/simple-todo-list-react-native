@@ -1,7 +1,6 @@
 import {Picker} from '@react-native-community/picker';
 import React, {useEffect, useRef, useState} from 'react';
 import {
-  Button,
   StyleSheet,
   Text,
   TextInput,
@@ -9,33 +8,23 @@ import {
   View,
 } from 'react-native';
 
-// import DatePicker from 'react-native-datepicker';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import BirthDay from './BirthDay';
 
-const UpdateForm = ({setUpdate}) => {
+const UpdateForm = ({navigation}) => {
   const [selectedValue, setSelectedValue] = useState('male');
   //   Date related
   // const [date, setDate] = useState('2016-05-15');
   const [date, setDate] = useState(new Date(1598051730000));
   const [show, setShow] = useState(false);
 
-  const inputRef_1 = useRef(null);
+  // const inputRef_1 = useRef(null);
   const inputRef_2 = useRef(null);
-  useEffect(() => {
-    inputRef_1.current.focus();
-  }, []);
 
   const handleUpdate = () => {
     console.log('Update clicked');
-    setUpdate(false);
+    navigation.goBack();
   };
 
-  const onChange = (selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Update your information</Text>
@@ -43,8 +32,9 @@ const UpdateForm = ({setUpdate}) => {
         <View style={styles.singleField}>
           <Text style={styles.propName}>Full Name </Text>
           <TextInput
-            ref={inputRef_1}
+            // ref={inputRef_1}
             style={styles.input}
+            autoFocus={true}
             placeholder="Enter your fullname"
             returnKeyType="next"
             onSubmitEditing={() => inputRef_2.current.focus()}
@@ -57,7 +47,6 @@ const UpdateForm = ({setUpdate}) => {
             ref={inputRef_2}
             returnKeyType="next"
             style={styles.input}
-            autoFocus={true}
             placeholder="Enter your location"
             value="Rajshahi, Bangladesh"
           />

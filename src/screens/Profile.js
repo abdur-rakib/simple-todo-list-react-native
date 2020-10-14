@@ -3,17 +3,11 @@ import {Alert, StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
 import {logout} from '../redux/actions/authActions';
 import UserInfo from '../components/UserInfo';
-import UpdateForm from '../components/UpdateForm';
 
 const Profile = () => {
-  const [update, setUpdate] = useState(false);
   return (
     <View style={styles.container}>
-      {update ? (
-        <UpdateForm setUpdate={setUpdate} />
-      ) : (
-        <UserInfo setUpdate={setUpdate} />
-      )}
+      <UserInfo />
     </View>
   );
 };

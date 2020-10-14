@@ -1,10 +1,12 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-const UserInfo = ({setUpdate}) => {
+const UserInfo = () => {
+  const navigation = useNavigation();
   const handleEdit = () => {
     console.log('Update button pressed');
-    setUpdate(true);
+    navigation.navigate('Update');
   };
   return (
     <>
