@@ -1,55 +1,19 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Alert, StyleSheet, View} from 'react-native';
-import {Avatar, Button, Icon, Text} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {logout} from '../redux/actions/authActions';
+import UserInfo from '../components/UserInfo';
+import UpdateForm from '../components/UpdateForm';
 
-const Profile = ({auth, logout}) => {
-  const {userImage, userName} = auth;
-
-  // handle logout
-  const handleLogout = () => {
-    Alert.alert(
-      '',
-      'Are you sure to logout?',
-      [
-        {
-          text: 'No',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel',
-        },
-        {text: 'Yes', onPress: logout},
-      ],
-      {cancelable: true},
-    );
-  };
+const Profile = () => {
+  const [update, setUpdate] = useState(false);
   return (
     <View style={styles.container}>
-      <View style={styles.userInfo}>
-        <Avatar
-          size="xlarge"
-          rounded
-          source={{
-            uri: `${userImage}`,
-          }}
-        />
-        <Text h4 h4Style={{fontWeight: '300'}}>
-          {userName}
-        </Text>
-        <Button
-          buttonStyle={styles.button}
-          title="Logout"
-          onPress={handleLogout}
-          icon={
-            <Icon
-              name="logout"
-              size={15}
-              color="white"
-              iconStyle={{paddingHorizontal: 6}}
-            />
-          }
-        />
-      </View>
+      {update ? (
+        <UpdateForm setUpdate={setUpdate} />
+      ) : (
+        <UserInfo setUpdate={setUpdate} />
+      )}
     </View>
   );
 };
@@ -65,20 +29,29 @@ export default connect(mapStateToProps, mapActionsToProps)(Profile);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: '35%',
+    paddingHorizontal: 15,
   },
-  userInfo: {
-    width: '90%',
-    paddingVertical: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
+  title: {
+    fontSize: 22,
+    marginVertical: 20,
+    alignSelf: 'center',
+    borderBottomWidth: 2,
+  },
+  userInfo: {},
+  properties: {
+    fontSize: 20,
+    backgroundColor: 'lightgray',
+    marginVertical: 5,
+    paddingVertical: 5,
+    width: '100%',
+    textAlign: 'center',
+  },
+  updateButton: {
+    backgroundColor: 'teal',
+    width: 200,
+    marginVertical: 20,
+    alignSelf: 'center',
+    paddingVertical: 10,
     borderRadius: 10,
-  },
-  button: {
-    backgroundColor: 'red',
-    height: 30,
-    marginVertical: 10,
   },
 });
