@@ -1,4 +1,4 @@
-import {auth, GoogleSignin} from '../../firebase/utils';
+import {auth, db, GoogleSignin} from '../../firebase/utils';
 import {CLEAR_LOADING, SET_LOADING, SET_LOGOUT, SET_USER} from '../types';
 
 async function onGoogleButtonPress() {
@@ -15,17 +15,47 @@ async function onGoogleButtonPress() {
 export const loginWithGoogle = () => (dispatch) => {
   dispatch({type: SET_LOADING});
   onGoogleButtonPress().then((res) => {
+    console.log('user ID: ', res.user.uid);
     dispatch({type: CLEAR_LOADING});
-    // console.log(res);
-    dispatch({
-      type: SET_USER,
-      payload: {
-        authenticated: true,
-        userName: res.user.displayName,
-        userImage: res.user.photoURL,
-        userId: res.user.uid,
-      },
-    });
+
+    db.doc(`users/${res.user.uid}`)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log(doc.data());
+          dispatch({
+            type: SET_USER,
+            payload: {
+              authenticated: true,
+              ...doc.data(),
+            },
+          });
+        } else {
+          db.doc(`users/${res.user.uid}`)
+            .set({
+              userName: res.user.displayName,
+              userImage: res.user.photoURL,
+              userId: res.user.uid,
+              birthdate: null,
+              gender: 'male',
+              location: '',
+            })
+            .then(() => {
+              dispatch({
+                type: SET_USER,
+                payload: {
+                  authenticated: true,
+                  userName: res.user.displayName,
+                  userImage: res.user.photoURL,
+                  userId: res.user.uid,
+                  birthdate: null,
+                  gender: 'male',
+                  location: '',
+                },
+              });
+            });
+        }
+      });
   });
 };
 
@@ -39,4 +69,16 @@ export const logout = () => (dispatch) => {
     .catch((err) => console.log('Error in logout', err));
 };
 
-// Utility function
+export const getAuthenticatedUser = (userId) => (dispatch) => {
+  db.doc(`users/${userId}`)
+    .get()
+    .then((doc) => {
+      dispatch({
+        type: SET_USER,
+        payload: {
+          authenticated: true,
+          ...doc.data(),
+        },
+      });
+    });
+};

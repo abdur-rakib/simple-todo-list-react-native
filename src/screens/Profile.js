@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
-import {Alert, StyleSheet, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {Alert, Button, StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
-import {logout} from '../redux/actions/authActions';
+import {logout, getAuthenticatedUser} from '../redux/actions/authActions';
 import UserInfo from '../components/UserInfo';
 
-const Profile = () => {
+const Profile = ({logout, auth, getAuthenticatedUser}) => {
+  // console.log(auth);
+  useEffect(() => {
+    // getAuthenticatedUser(auth.userId);
+  }, []);
   return (
     <View style={styles.container}>
-      <UserInfo />
+      <UserInfo auth={auth} />
+      <Button title="Logout" onPress={logout} />
     </View>
   );
 };
@@ -16,7 +21,7 @@ const mapStateToProps = (state) => {
     auth: state.auth,
   };
 };
-const mapActionsToProps = {logout};
+const mapActionsToProps = {logout, getAuthenticatedUser};
 
 export default connect(mapStateToProps, mapActionsToProps)(Profile);
 

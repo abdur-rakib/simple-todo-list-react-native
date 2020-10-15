@@ -2,7 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-const UserInfo = () => {
+const UserInfo = ({auth: {userName, birthdate, gender, location}}) => {
   const navigation = useNavigation();
   const handleEdit = () => {
     console.log('Update button pressed');
@@ -12,10 +12,10 @@ const UserInfo = () => {
     <>
       <Text style={styles.title}>User Info</Text>
       <View style={styles.userInfo}>
-        <Text style={styles.properties}> Full Name: John Doe</Text>
+        <Text style={styles.properties}> Full Name: {userName}</Text>
         <Text style={styles.properties}> Birthday: 23/10/97</Text>
-        <Text style={styles.properties}> Gender: Male</Text>
-        <Text style={styles.properties}> Location: Rasjshahi</Text>
+        <Text style={styles.properties}> Gender: {gender}</Text>
+        <Text style={styles.properties}> Location: {location}</Text>
       </View>
       <TouchableOpacity style={styles.updateButton} onPress={handleEdit}>
         <Text style={{fontSize: 20, alignSelf: 'center', color: 'white'}}>

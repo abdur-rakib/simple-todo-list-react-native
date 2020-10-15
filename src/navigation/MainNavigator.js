@@ -6,8 +6,10 @@ import auth from '@react-native-firebase/auth';
 import store from '../redux/store';
 import {SET_USER} from '../redux/types';
 import MainTabNavigator from './MainTabNavigator';
+import {getAuthenticatedUser} from '../redux/actions/authActions';
+import {connect} from 'react-redux';
 
-const MainNavigator = () => {
+const MainNavigator = ({getAuthenticatedUser}) => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
@@ -17,15 +19,18 @@ const MainNavigator = () => {
     setUser(user);
     if (user) {
       // console.log('user from container', user);
-      store.dispatch({
-        type: SET_USER,
-        payload: {
-          authenticated: true,
-          userName: user.displayName,
-          userImage: user.photoURL,
-          userId: user.uid,
-        },
-      });
+      // store.dispatch({
+      //   type: SET_USER,
+      //   payload: {
+      //     authenticated: true,
+      //     userName: user.displayName,
+      //     userImage: user.photoURL,
+      //     gender: user.gender,
+      //     birthdate: user.birthdate,
+      //     location: user.location,
+      //   },
+      // });
+      getAuthenticatedUser(user.uid);
     }
     if (initializing) setInitializing(false);
   };
@@ -45,4 +50,9 @@ const MainNavigator = () => {
   return <NavigationContainer>{renderScreen}</NavigationContainer>;
 };
 
-export default MainNavigator;
+const mapActionsToProps = {getAuthenticatedUser};
+const mapStateToProps = (state) => {
+  return {};
+};
+
+export default connect(mapStateToProps, mapActionsToProps)(MainNavigator);
