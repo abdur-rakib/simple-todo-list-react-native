@@ -23,13 +23,15 @@ export const loginWithGoogle = () => (dispatch) => {
       .then((doc) => {
         if (doc.exists) {
           console.log(doc.data());
-          dispatch({
-            type: SET_USER,
-            payload: {
-              authenticated: true,
-              ...doc.data(),
-            },
-          });
+          // dispatch({
+          //   type: SET_USER,
+          //   payload: {
+          //     authenticated: true,
+          //     ...doc.data(),
+          //     birthdate: doc.data().birthdate.toDate(),
+          //   },
+          // });
+          getAuthenticatedUser(res.user.uid);
         } else {
           db.doc(`users/${res.user.uid}`)
             .set({
@@ -37,8 +39,8 @@ export const loginWithGoogle = () => (dispatch) => {
               userImage: res.user.photoURL,
               userId: res.user.uid,
               birthdate: null,
-              gender: 'male',
-              location: '',
+              gender: 'Male',
+              location: null,
             })
             .then(() => {
               dispatch({
@@ -49,8 +51,8 @@ export const loginWithGoogle = () => (dispatch) => {
                   userImage: res.user.photoURL,
                   userId: res.user.uid,
                   birthdate: null,
-                  gender: 'male',
-                  location: '',
+                  gender: 'Male',
+                  location: null,
                 },
               });
             });
@@ -81,4 +83,21 @@ export const getAuthenticatedUser = (userId) => (dispatch) => {
         },
       });
     });
+};
+
+export const updateProfile = (userData, userId) => (dispatch) => {
+  // console.log('Update Profile', userData.birthdate.toString());
+  dispatch({
+    type: SET_USER,
+    payload: {
+      ...userData,
+      birthdate: userData.birthdate.toString(),
+    },
+  });
+  db.doc(`users/${userId}`)
+    .update({
+      ...userData,
+      birthdate: userData.birthdate.toString(),
+    })
+    .then(() => console.log('Data Updated'));
 };

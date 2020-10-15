@@ -7,21 +7,43 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {updateProfile} from '../redux/actions/authActions';
 
 import BirthDay from './BirthDay';
 
-const UpdateForm = ({navigation}) => {
-  const [selectedValue, setSelectedValue] = useState('male');
-  //   Date related
-  // const [date, setDate] = useState('2016-05-15');
-  const [date, setDate] = useState(new Date(1598051730000));
-  const [show, setShow] = useState(false);
+const UpdateForm = ({navigation, route, updateProfile}) => {
+  const [gender, setGender] = useState('male');
+  const [birthdate, setBirthdate] = useState(null);
+  // const [birthdate, setBirthdate] = useState('2020-10-16T05:25:40.643Z');
+  const [location, setLocation] = useState('');
+  const [userName, setUserName] = useState('');
+  console.log('Date', birthdate);
 
+  useEffect(() => {
+    setUserName(route.params.userName);
+    setLocation(route.params.location);
+    setGender(route.params.gender);
+    if (route.params.birthdate) {
+      setBirthdate(route.params.birthdate);
+    }
+  }, []);
+
+  // console.log(route.params);
   // const inputRef_1 = useRef(null);
   const inputRef_2 = useRef(null);
 
   const handleUpdate = () => {
-    console.log('Update clicked');
+    // console.log('Update clicked');
+    updateProfile(
+      {
+        userName,
+        location,
+        birthdate,
+        gender,
+      },
+      route.params.userId,
+    );
     navigation.goBack();
   };
 
@@ -38,7 +60,8 @@ const UpdateForm = ({navigation}) => {
             placeholder="Enter your fullname"
             returnKeyType="next"
             onSubmitEditing={() => inputRef_2.current.focus()}
-            value="Abdur Rakib"
+            value={userName}
+            onChangeText={(text) => setUserName(text)}
           />
         </View>
         <View style={styles.singleField}>
@@ -48,7 +71,8 @@ const UpdateForm = ({navigation}) => {
             returnKeyType="next"
             style={styles.input}
             placeholder="Enter your location"
-            value="Rajshahi, Bangladesh"
+            value={location}
+            onChangeText={(text) => setLocation(text)}
           />
         </View>
         <View
@@ -57,7 +81,7 @@ const UpdateForm = ({navigation}) => {
             justifyContent: 'space-around',
             alignItems: 'center',
           }}>
-          <BirthDay />
+          <BirthDay birthdate={birthdate} setBirthdate={setBirthdate} />
           <View
             style={[
               styles.singleField,
@@ -71,13 +95,11 @@ const UpdateForm = ({navigation}) => {
             <Picker
               mode="dialog"
               style={{width: 100}}
-              selectedValue={selectedValue}
+              selectedValue={gender}
               style={{height: 50, width: 150}}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedValue(itemValue)
-              }>
-              <Picker.Item label="Male" value="male" />
-              <Picker.Item label="Female" value="female" />
+              onValueChange={(itemValue, itemIndex) => setGender(itemValue)}>
+              <Picker.Item label="Male" value="Male" />
+              <Picker.Item label="Female" value="Female" />
             </Picker>
           </View>
         </View>
@@ -91,7 +113,12 @@ const UpdateForm = ({navigation}) => {
   );
 };
 
-export default UpdateForm;
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapActionsToProps = {updateProfile};
+
+export default connect(mapStateToProps, mapActionsToProps)(UpdateForm);
 
 const styles = StyleSheet.create({
   container: {

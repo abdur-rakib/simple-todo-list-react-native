@@ -5,9 +5,8 @@ import {logout, getAuthenticatedUser} from '../redux/actions/authActions';
 import UserInfo from '../components/UserInfo';
 
 const Profile = ({logout, auth, getAuthenticatedUser}) => {
-  // console.log(auth);
   useEffect(() => {
-    // getAuthenticatedUser(auth.userId);
+    getAuthenticatedUser(auth.userId);
   }, []);
   return (
     <View style={styles.container}>

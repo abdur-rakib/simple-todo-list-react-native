@@ -1,21 +1,48 @@
 import {useNavigation} from '@react-navigation/native';
+import dayjs from 'dayjs';
 import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-const UserInfo = ({auth: {userName, birthdate, gender, location}}) => {
+const UserInfo = ({auth: {userName, birthdate, gender, location, userId}}) => {
   const navigation = useNavigation();
   const handleEdit = () => {
     console.log('Update button pressed');
-    navigation.navigate('Update');
+    navigation.navigate('Update', {
+      userName,
+      birthdate,
+      gender,
+      location,
+      userId,
+    });
   };
   return (
     <>
       <Text style={styles.title}>User Info</Text>
       <View style={styles.userInfo}>
-        <Text style={styles.properties}> Full Name: {userName}</Text>
-        <Text style={styles.properties}> Birthday: 23/10/97</Text>
-        <Text style={styles.properties}> Gender: {gender}</Text>
-        <Text style={styles.properties}> Location: {location}</Text>
+        <Text style={styles.properties}>
+          {' '}
+          Full Name: <Text style={styles.value}>{userName}</Text>
+        </Text>
+        <Text style={styles.properties}>
+          {' '}
+          Birthday:
+          <Text style={styles.value}>
+            {birthdate
+              ? dayjs(birthdate).format('DD/MM/YYYY')
+              : 'Not added yet'}
+          </Text>
+        </Text>
+        <Text style={styles.properties}>
+          {' '}
+          Gender: <Text style={styles.value}>{gender}</Text>
+        </Text>
+        <Text style={styles.properties}>
+          {' '}
+          Location:{' '}
+          <Text style={styles.value}>
+            {location === null ? 'Not added yet' : location}
+          </Text>
+        </Text>
       </View>
       <TouchableOpacity style={styles.updateButton} onPress={handleEdit}>
         <Text style={{fontSize: 20, alignSelf: 'center', color: 'white'}}>
@@ -41,12 +68,14 @@ const styles = StyleSheet.create({
   },
   userInfo: {},
   properties: {
-    fontSize: 20,
+    fontSize: 18,
     backgroundColor: 'lightgray',
     marginVertical: 5,
     paddingVertical: 5,
     width: '100%',
-    textAlign: 'center',
+    // textAlign: 'center',
+    paddingLeft: 20,
+    fontWeight: 'bold',
   },
   updateButton: {
     backgroundColor: 'teal',
@@ -55,5 +84,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingVertical: 10,
     borderRadius: 10,
+  },
+  value: {
+    fontWeight: 'normal',
   },
 });

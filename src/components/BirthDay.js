@@ -1,11 +1,12 @@
 import dayjs from 'dayjs';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, StyleSheet, Text, View} from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-const BirthDay = () => {
-  const [date, setDate] = useState(new Date());
+const BirthDay = ({birthdate, setBirthdate}) => {
+  // const [date, setDate] = useState(new Date());
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  useEffect(() => {}, [birthdate]);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -16,15 +17,22 @@ const BirthDay = () => {
   };
 
   const handleConfirm = (date) => {
-    setDate(date);
+    // console.log(date);
+    setBirthdate(date);
     hideDatePicker();
   };
+  // '2020-10-16T05:25:40.643Z'
   return (
     <View style={styles.container}>
       <View style={styles.singleField}>
         <Text style={styles.propName}>BirthDay </Text>
         <TouchableOpacity onPress={showDatePicker}>
-          <Text style={styles.date}>{dayjs(date).format('DD/MM/YYYY')}</Text>
+          {/* <Text style={styles.date}>
+            {dayjs(birthdate).format('DD/MM/YYYY')}
+          </Text> */}
+          <Text style={styles.date}>
+            {birthdate ? dayjs(birthdate).format('DD/MM/YYYY') : '...loading'}
+          </Text>
         </TouchableOpacity>
         <DateTimePickerModal
           isVisible={isDatePickerVisible}
