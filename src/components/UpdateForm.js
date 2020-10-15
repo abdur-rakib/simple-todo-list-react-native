@@ -1,6 +1,7 @@
 import {Picker} from '@react-native-community/picker';
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
+  Keyboard,
   StyleSheet,
   Text,
   TextInput,
@@ -19,6 +20,30 @@ const UpdateForm = ({navigation, route, updateProfile}) => {
   const [location, setLocation] = useState('');
   const [userName, setUserName] = useState('');
   console.log('Date', birthdate);
+
+  // Key board isssue
+  const _keyboardDidShow = useCallback(() => {
+    navigation.setOptions({
+      tabBarVisible: false,
+    });
+  }, [navigation]);
+
+  const _keyboardDidHide = useCallback(() => {
+    navigation.setOptions({
+      tabBarVisible: true,
+    });
+  }, [navigation]);
+
+  useEffect(() => {
+    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
+    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
+
+    // cleanup function
+    return () => {
+      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
+      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
+    };
+  }, [_keyboardDidHide, _keyboardDidShow]);
 
   useEffect(() => {
     setUserName(route.params.userName);
