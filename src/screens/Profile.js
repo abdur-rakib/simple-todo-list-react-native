@@ -1,17 +1,39 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, Button, StyleSheet, View} from 'react-native';
+import {Alert, StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
+import {Button} from 'react-native-elements';
 import {logout, getAuthenticatedUser} from '../redux/actions/authActions';
 import UserInfo from '../components/UserInfo';
 
 const Profile = ({logout, auth, getAuthenticatedUser}) => {
+  const handleLogout = () => {
+    Alert.alert(
+      '',
+      'Are you sure to logout?',
+      [
+        {
+          text: 'No',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Yes', onPress: logout},
+      ],
+      {cancelable: true},
+    );
+  };
   useEffect(() => {
     getAuthenticatedUser(auth.userId);
   }, []);
   return (
     <View style={styles.container}>
-      <UserInfo auth={auth} />
-      <Button title="Logout" onPress={logout} />
+      <View>
+        <UserInfo auth={auth} />
+      </View>
+      <Button
+        buttonStyle={{marginVertical: 10, backgroundColor: 'red'}}
+        title="Logout"
+        onPress={handleLogout}
+      />
     </View>
   );
 };
@@ -28,6 +50,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 15,
+    justifyContent: 'space-between',
   },
   title: {
     fontSize: 22,
