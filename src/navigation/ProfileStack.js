@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 
 const AuthStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator headerMode="none">
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Update" component={UpdateForm} />
     </Stack.Navigator>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, StatusBar} from 'react-native';
 import AddTaskForm from '../components/AddTaskForm';
 import TaskList from '../components/TaskList';
 

@@ -17,7 +17,7 @@ const UserInfo = ({auth: {userName, birthdate, gender, location, userId}}) => {
     });
   };
   return (
-    <>
+    <View style={styles.container}>
       <Text style={styles.title}>User Info</Text>
       <View style={styles.userInfo}>
         {/* <UserImage /> */}
@@ -51,7 +51,7 @@ const UserInfo = ({auth: {userName, birthdate, gender, location, userId}}) => {
           Edit Profile
         </Text>
       </TouchableOpacity>
-    </>
+    </View>
   );
 };
 
@@ -59,8 +59,7 @@ export default UserInfo;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    paddingHorizontal: 15,
+    backgroundColor: 'white',
   },
   title: {
     fontSize: 22,
@@ -84,8 +83,8 @@ const styles = StyleSheet.create({
     width: 200,
     marginVertical: 20,
     alignSelf: 'center',
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
   },
   value: {
     fontWeight: 'normal',

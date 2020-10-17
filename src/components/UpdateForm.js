@@ -10,40 +10,15 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {updateProfile} from '../redux/actions/authActions';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import BirthDay from './BirthDay';
 
 const UpdateForm = ({navigation, route, updateProfile}) => {
   const [gender, setGender] = useState('male');
   const [birthdate, setBirthdate] = useState(null);
-  // const [birthdate, setBirthdate] = useState('2020-10-16T05:25:40.643Z');
   const [location, setLocation] = useState('');
   const [userName, setUserName] = useState('');
-  console.log('Date', birthdate);
-
-  // Key board isssue
-  const _keyboardDidShow = useCallback(() => {
-    navigation.setOptions({
-      tabBarVisible: false,
-    });
-  }, [navigation]);
-
-  const _keyboardDidHide = useCallback(() => {
-    navigation.setOptions({
-      tabBarVisible: true,
-    });
-  }, [navigation]);
-
-  useEffect(() => {
-    Keyboard.addListener('keyboardDidShow', _keyboardDidShow);
-    Keyboard.addListener('keyboardDidHide', _keyboardDidHide);
-
-    // cleanup function
-    return () => {
-      Keyboard.removeListener('keyboardDidShow', _keyboardDidShow);
-      Keyboard.removeListener('keyboardDidHide', _keyboardDidHide);
-    };
-  }, [_keyboardDidHide, _keyboardDidShow]);
 
   useEffect(() => {
     setUserName(route.params.userName);
@@ -54,12 +29,10 @@ const UpdateForm = ({navigation, route, updateProfile}) => {
     }
   }, []);
 
-  // console.log(route.params);
   // const inputRef_1 = useRef(null);
   const inputRef_2 = useRef(null);
 
   const handleUpdate = () => {
-    // console.log('Update clicked');
     updateProfile(
       {
         userName,
@@ -72,8 +45,20 @@ const UpdateForm = ({navigation, route, updateProfile}) => {
     navigation.goBack();
   };
 
+  const handleCancel = () => {
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={handleCancel}>
+          <Ionicons name="arrow-back-outline" size={30} />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={handleCancel}>
+          <Ionicons name="close-outline" color="black" size={35} />
+        </TouchableOpacity>
+      </View>
       <Text style={styles.title}>Update your information</Text>
       <View style={styles.updateContainer}>
         <View style={styles.singleField}>
@@ -129,11 +114,20 @@ const UpdateForm = ({navigation, route, updateProfile}) => {
           </View>
         </View>
       </View>
-      <TouchableOpacity style={styles.updateButton} onPress={handleUpdate}>
-        <Text style={{fontSize: 20, alignSelf: 'center', color: 'white'}}>
-          Update Profile
-        </Text>
-      </TouchableOpacity>
+      <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+        {/* <TouchableOpacity
+          style={[styles.updateButton, {backgroundColor: 'dodgerblue'}]}
+          onPress={handleCancel}>
+          <Text style={{fontSize: 18, alignSelf: 'center', color: 'white'}}>
+            Cancel Update
+          </Text>
+        </TouchableOpacity> */}
+        <TouchableOpacity style={styles.updateButton} onPress={handleUpdate}>
+          <Text style={{fontSize: 18, alignSelf: 'center', color: 'white'}}>
+            Update Profile
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -147,14 +141,18 @@ export default connect(mapStateToProps, mapActionsToProps)(UpdateForm);
 
 const styles = StyleSheet.create({
   container: {
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    // flex: 1,
-    marginHorizontal: 20,
+    flex: 1,
+    paddingHorizontal: 20,
+    backgroundColor: 'white',
+  },
+  header: {
+    marginTop: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   title: {
     fontSize: 22,
-    marginVertical: 20,
+    marginVertical: 10,
     alignSelf: 'center',
     borderBottomWidth: 2,
   },
@@ -178,11 +176,11 @@ const styles = StyleSheet.create({
   },
   updateButton: {
     backgroundColor: 'teal',
-    width: 200,
-    marginVertical: 20,
+    width: 150,
+    marginVertical: 15,
     alignSelf: 'center',
-    paddingVertical: 10,
-    borderRadius: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
   },
   picker: {
     backgroundColor: 'teal',

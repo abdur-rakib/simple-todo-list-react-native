@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 15,
     justifyContent: 'space-between',
+    backgroundColor: 'white',
   },
   title: {
     fontSize: 22,
