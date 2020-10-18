@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
-import {ListItem, Icon, Text} from 'react-native-elements';
-import {useNavigation} from '@react-navigation/native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import {FlatList, StyleSheet, View} from 'react-native';
+import {Text} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {getTasks} from '../../src/redux/actions/dataActions';
 // Picker

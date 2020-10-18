@@ -12,7 +12,6 @@ import {connect} from 'react-redux';
 import {toggleComplete, updateTask} from '../redux/actions/dataActions';
 
 const SingleTask = ({item, toggleComplete, updateTask}) => {
-  //   console.log(item);
   const navigation = useNavigation();
   const [visible, setVisible] = useState(false);
   const [taskDes, setTaskDes] = useState(item.taskDescription);
@@ -26,7 +25,13 @@ const SingleTask = ({item, toggleComplete, updateTask}) => {
     console.log('Pressed');
   };
   return (
-    <>
+    <View
+      style={{
+        borderWidth: 1,
+        borderColor: 'lightgray',
+        marginBottom: 10,
+        borderRadius: 2,
+      }}>
       <Overlay
         onBackdropPress={toggleOverlay}
         isVisible={visible}
@@ -85,7 +90,7 @@ const SingleTask = ({item, toggleComplete, updateTask}) => {
           />
         </View>
       </View>
-    </>
+    </View>
   );
 };
 const mapActionsToProps = {toggleComplete, updateTask};
@@ -101,6 +106,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 10,
+    justifyContent: 'center',
   },
   contentArea: {
     // flexGrow: 1,

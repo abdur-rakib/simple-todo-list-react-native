@@ -1,8 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
 import dayjs from 'dayjs';
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import UserImage from './UserImage';
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+// import UserImage from './UserImage';
 
 const UserInfo = ({auth: {userName, birthdate, gender, location, userId}}) => {
   const navigation = useNavigation();

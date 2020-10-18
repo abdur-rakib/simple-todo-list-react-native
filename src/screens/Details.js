@@ -1,13 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
 import moment from 'moment';
-import React from 'react';
-import {View, Text, Alert, StyleSheet} from 'react-native';
+import React, {useEffect} from 'react';
+import {View, Text, Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import {Card} from 'react-native-elements';
 import {Button} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {deleteTask, updateTask} from '../redux/actions/dataActions';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Details = ({route, data, deleteTask, updateTask}) => {
+const Details = ({route, deleteTask}) => {
   const {task} = route.params;
   const navigation = useNavigation();
 
@@ -15,7 +16,7 @@ const Details = ({route, data, deleteTask, updateTask}) => {
     deleteTask(task.id);
     navigation.navigate('Home');
   };
-
+  useEffect(() => {}, []);
   const deleteAlert = () =>
     Alert.alert(
       '',
@@ -33,6 +34,12 @@ const Details = ({route, data, deleteTask, updateTask}) => {
 
   return (
     <View>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back-outline" size={30} />
+        </TouchableOpacity>
+        <Text style={{fontSize: 20, marginLeft: 10}}>Details</Text>
+      </View>
       <Card containerStyle={{borderRadius: 10}}>
         <Text style={styles.text}>{task.taskDescription}</Text>
         <Text style={{fontWeight: 'bold'}}>
@@ -61,6 +68,11 @@ const Details = ({route, data, deleteTask, updateTask}) => {
 };
 const styles = StyleSheet.create({
   text: {fontSize: 18, textAlign: 'justify', color: 'gray'},
+  header: {
+    marginTop: 10,
+    flexDirection: 'row',
+    marginHorizontal: 20,
+  },
 });
 const mapStateToProps = (state) => {
   return {data: state.data};

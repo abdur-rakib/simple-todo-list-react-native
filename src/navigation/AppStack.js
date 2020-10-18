@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 
 const AppStack = () => {
   return (
-    <Stack.Navigator screenOptions={{gestureEnabled: true}}>
+    <Stack.Navigator headerMode="none" screenOptions={{gestureEnabled: true}}>
       <Stack.Screen
         name="Home"
         component={Home}
